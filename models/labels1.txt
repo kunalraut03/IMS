@@ -1,0 +1,13 @@
+0: 1
+1: battery
+2: bulb
+3: cat
+4: dcjack
+5: earphone
+6: elephant
+7: hand
+8: hc05
+9: mouse
+10: noobject
+11: relay
+12: servo
