@@ -16,7 +16,7 @@ class StopSignalHandler:
         self.is_running = True
         self.server_thread = None
         self.file_check_thread = None
-        self.signal_file = "C://IMS\\kaymh\\Downloads\\VIGYAN ASHRAM files\\IMS\\ver3.1\\stop_training.signal"
+        self.signal_file = "C://IMS\\stop_training.signal"
         
     def start(self):
         """Start all signal handlers"""

@@ -11,11 +11,11 @@ import platform
 import logging
 import signal
 import threading
-from stop_signal_handler import StopSignalHandler
 
-root_dir = "C://IMS\\kaymh\\Downloads\\VIGYAN ASHRAM files\\IMS\\ver3.1"
-data_dir = os.path.join(root_dir, "data")
-models_dir = os.path.join(root_dir, "models")
+# Use environment variables or fallback to current directory
+root_dir = os.environ.get("IMS_INSTALLATION_DIR", os.path.dirname(os.path.abspath(__file__)))
+data_dir = os.environ.get("IMS_DATA_DIR", os.path.join(root_dir, "data"))
+models_dir = os.environ.get("IMS_MODELS_DIR", os.path.join(root_dir, "models"))
 labels_path = os.path.join(models_dir, "labels1.txt")
 model_path = os.path.join(models_dir, "model.h5")
 temp_model_path = os.path.join(models_dir, "model_temp.h5")
@@ -247,22 +247,94 @@ def restore_from_backup():
     
     return False
 
+class SimpleStopHandler:
+    def __init__(self, stop_event):
+        self.stop_event = stop_event
+        self.running = False
+        self.server_thread = None
+    
+    def start(self):
+        self.running = True
+        self.server_thread = threading.Thread(target=self._command_server, daemon=True)
+        self.server_thread.start()
+        # Also check for signal file
+        self.file_check_thread = threading.Thread(target=self._check_signal_file, daemon=True)
+        self.file_check_thread.start()
+    
+    def stop(self):
+        self.running = False
+    
+    def _command_server(self):
+        try:
+            server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            server.bind(("127.0.0.1", 5679))
+            server.settimeout(1.0)
+            server.listen(1)
+            
+            while self.running:
+                try:
+                    client, _ = server.accept()
+                    data = client.recv(1024)
+                    try:
+                        message = json.loads(data.decode('utf-8'))
+                        if message.get("command") == "stop":
+                            self.stop_event.set()
+                            logging.info("Stop command received via socket")
+                    except:
+                        pass
+                    client.close()
+                except socket.timeout:
+                    continue
+                except:
+                    break
+            server.close()
+        except Exception as e:
+            logging.error(f"Command server error: {e}")
+    
+    def _check_signal_file(self):
+        signal_file = os.path.join(root_dir, "stop_training.signal")
+        while self.running:
+            if os.path.exists(signal_file):
+                self.stop_event.set()
+                logging.info("Stop signal file detected")
+                try:
+                    os.remove(signal_file)
+                except:
+                    pass
+                break
+            threading.Event().wait(0.5)  # Check every 500ms
+
 def main():
-    logging.basicConfig(filename="ims_debug.log", level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+    logging.basicConfig(filename=os.path.join(root_dir, "ims_debug.log"), level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
     logging.info(f"Starting training with TensorFlow {tf.__version__}")
+    logging.info(f"Root directory: {root_dir}")
+    logging.info(f"Data directory: {data_dir}")
+    logging.info(f"Models directory: {models_dir}")
     
     signal.signal(signal.SIGINT, signal_handler)
     
     # Initialize the stop signal handler
-    stop_handler = StopSignalHandler(stop_training_event)
+    stop_handler = SimpleStopHandler(stop_training_event)
     stop_handler.start()
     
     os.makedirs(models_dir, exist_ok=True)
     
+    # Check if data directory exists
+    if not os.path.exists(data_dir):
+        logging.error(f"Data directory does not exist: {data_dir}")
+        print(f"Error: Data directory does not exist: {data_dir}")
+        return
+    
     # Backup existing model
     has_backup = backup_existing_model()
     
-    train_data, val_data = create_data_generator()
+    try:
+        train_data, val_data = create_data_generator()
+    except Exception as e:
+        logging.error(f"Failed to create data generator: {e}")
+        print(f"Error: Failed to create data generator: {e}")
+        return
     
     with open(labels_path, "w") as f:
         for label, index in train_data.class_indices.items():

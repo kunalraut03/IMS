@@ -655,3 +655,7 @@ OSError: [Errno 22] Invalid argument
 2025-05-26 01:48:04,137 - INFO - Final save to Excel completed
 2025-05-26 01:48:04,159 - INFO - Excel feed session ended
 2025-05-26 01:50:03,874 - INFO - Using conda environment Python: C:\Users\kaymh\miniconda3\envs\imsv3\python.exe
+2025-05-26 16:33:33,597 - INFO - Using conda environment Python: C:\Users\kaymh\miniconda3\envs\imsv3\python.exe
+2025-05-26 16:33:53,719 - INFO - Using conda environment Python: C:\Users\kaymh\miniconda3\envs\imsv3\python.exe
+2025-05-26 16:52:34,574 - INFO - Starting training script: C:/Users/kaymh/Downloads/IMS\train.py
+2025-05-26 16:52:38,244 - INFO - Starting training with TensorFlow 2.10.0

@@ -29,8 +29,12 @@ def get_object_name():
     root.destroy()
     return object_name
 
+# Get root directory from environment variable or use current directory
+root_dir = os.environ.get("IMS_INSTALLATION_DIR", os.path.dirname(os.path.abspath(__file__)))
+data_dir = os.environ.get("IMS_DATA_DIR", os.path.join(root_dir, "data"))
+
 def check_duplicate_object(object_name):
-    save_dir = os.path.join(root_dir, "data", object_name)
+    save_dir = os.path.join(data_dir, object_name)
     if os.path.exists(save_dir):
         root = tk.Tk()
         root.withdraw()
@@ -69,12 +73,10 @@ def select_webcam():
     root.destroy()
     return webcam_index
 
-root_dir = "C://IMS\\kaymh\\Downloads\\VIGYAN ASHRAM files\\IMS\\ver3.1"
-
 while True:
     object_name = get_object_name()
     action = check_duplicate_object(object_name)
-    save_dir = os.path.join(root_dir, "data", object_name)
+    save_dir = os.path.join(data_dir, object_name)
     if action == 'overwrite':
         if os.path.exists(save_dir):
             for file in os.listdir(save_dir):

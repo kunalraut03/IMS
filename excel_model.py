@@ -42,6 +42,7 @@ today_excel = os.path.join(year_month_folder, f"{current_date.day:02d}_{current_
 logging.info(f"Excel file path: {today_excel}")
 
 detected_objects = []
+last_registration_time = 0  # Add timestamp tracking for registration delay
 
 registration_message = ""
 registration_time = None
@@ -237,26 +238,35 @@ while True:
         key = cv2.waitKey(1) & 0xFF
         
         if key == ord(' '):
-            if confidence > 80 and class_label.lower() != 'noobject':
-                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            # Check if enough time has passed since last registration (1 second delay)
+            current_timestamp = current_time.timestamp()
+            if current_timestamp - last_registration_time < 1.0:
+                remaining_time = 1.0 - (current_timestamp - last_registration_time)
+                logging.info(f"Registration blocked - please wait {remaining_time:.1f} more seconds")
+                print(f"Please wait {remaining_time:.1f} more seconds before registering another object")
+                registration_message = f"Wait {remaining_time:.1f}s before next registration"
+                registration_time = current_time
+            elif confidence > 80 and class_label.lower() != 'noobject':
+                timestamp = current_time.strftime("%Y-%m-%d %H:%M:%S")
                 detected_objects.append([timestamp, class_label, confidence])
+                last_registration_time = current_timestamp  # Update last registration time
                 logging.info(f"Object registered: {class_label} with confidence {confidence:.2f}% at {timestamp}")
                 print(f"Registered: {class_label} with confidence {confidence:.2f}%")
                 
                 registration_message = f"REGISTERED: {class_label}"
-                registration_time = datetime.datetime.now()
+                registration_time = current_time
                 
                 save_to_excel()
             elif class_label.lower() == 'noobject':
                 logging.info("'noobject' class ignored")
                 print("'noobject' class ignored")
                 registration_message = "'noobject' class ignored"
-                registration_time = datetime.datetime.now()
+                registration_time = current_time
             else:
                 logging.info(f"Confidence too low ({confidence:.2f}%) to register")
                 print(f"Confidence too low ({confidence:.2f}%) to register")
                 registration_message = f"Confidence too low ({confidence:.2f}%)"
-                registration_time = datetime.datetime.now()
+                registration_time = current_time
         
         elif key == ord('e'):
             logging.info("Exit key pressed")

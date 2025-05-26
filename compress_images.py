@@ -16,7 +16,7 @@ class ImageProcessor:
         self.output_dir = os.getenv("IMS_OUTPUT_DIR", "")
         
         if not self.input_dir or not self.output_dir:
-            default_dir = os.path.join("C://IMS\\kaymh\\Downloads\\VIGYAN ASHRAM files\\IMS\\ver3.1", "data")
+            default_dir = os.path.join("C://IMS", "data")
             self.input_dir = default_dir
             self.output_dir = default_dir
         

@@ -171,8 +171,9 @@ class EpochStatusWindow:
         
         if confirm:
             try:
-                # Send stop signal
+                # Try to send stop signal via socket
                 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                client.settimeout(2.0)  # Add timeout
                 client.connect(("127.0.0.1", 5679))  # Different port for commands
                 client.sendall(json.dumps({"command": "stop"}).encode('utf-8'))
                 client.close()
@@ -183,12 +184,18 @@ class EpochStatusWindow:
                 self.can_interrupt = False
                 
             except Exception as e:
-                print(f"Failed to send stop command: {e}")
+                print(f"Failed to send stop command via socket: {e}")
                 # Try alternative method - create a signal file
                 try:
-                    with open("C://IMS\\kaymh\\Downloads\\VIGYAN ASHRAM files\\IMS\\ver3.1\\stop_training.signal", "w") as f:
+                    # Get the installation directory to create signal file in correct location
+                    import os
+                    current_dir = os.path.dirname(os.path.abspath(__file__))
+                    signal_file = os.path.join(current_dir, "stop_training.signal")
+                    with open(signal_file, "w") as f:
                         f.write("stop")
                     self.interrupt_status_var.set("Stop signal sent via file")
+                    self.stop_button.config(state=tk.DISABLED, bg="gray75", fg="gray25")
+                    self.can_interrupt = False
                 except Exception as e:
                     print(f"Failed to create signal file: {e}")
                     messagebox.showerror("Error", "Failed to send stop command")

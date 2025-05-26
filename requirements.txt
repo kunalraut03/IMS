@@ -1,2 +1,6 @@
 pip install opencv-python
 pip install pillow
+pip install openpyxl
+pip install pandas
+pip uninstall -y numpy
+pip install numpy==1.23.5
