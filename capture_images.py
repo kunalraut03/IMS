@@ -29,7 +29,6 @@ def get_object_name():
     root.destroy()
     return object_name
 
-# Get root directory from environment variable or use current directory
 root_dir = os.environ.get("IMS_INSTALLATION_DIR", os.path.dirname(os.path.abspath(__file__)))
 data_dir = os.environ.get("IMS_DATA_DIR", os.path.join(root_dir, "data"))
 
@@ -94,9 +93,9 @@ os.makedirs(save_dir, exist_ok=True)
 
 webcam_index = select_webcam()
 cap = cv2.VideoCapture(webcam_index)
-cap.set(cv2.CAP_PROP_FPS, 30)  
+cap.set(cv2.CAP_PROP_FPS, 30)
 fps = 30
-capture_duration = 10  
+capture_duration = 10
 total_images = min(1500, 300 if action == 'append' else fps * capture_duration)
 count = get_next_image_index(save_dir, object_name) - 1
 
@@ -172,7 +171,7 @@ while count < total_images:
     resized_frame = cv2.resize(cropped_frame, (window_width, window_height))
 
     display_frame = resized_frame.copy()
-    cv2.putText(display_frame, f"Captured: {count}/{total_images}", (10, 30), 
+    cv2.putText(display_frame, f"Captured: {count}/{total_images}", (10, 30),
                 cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
     cv2.imshow("Image Capture", display_frame)
 

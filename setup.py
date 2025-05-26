@@ -4,13 +4,8 @@ import sys
 import shutil
 
 def create_executable():
-    """Create executable using PyInstaller"""
-    
-    # Get the directory where this script is located
     script_dir = os.path.dirname(os.path.abspath(__file__))
     main_script = os.path.join(script_dir, "main.py")
-    
-    # PyInstaller arguments
     args = [
         '--name=IMS',
         '--onefile',
@@ -24,29 +19,20 @@ def create_executable():
         '--hidden-import=sklearn',
         main_script
     ]
-    
-    # Remove empty icon argument if no icon file exists
     args = [arg for arg in args if arg]
-    
     print("Building executable with PyInstaller...")
     print(f"Arguments: {args}")
-    
     try:
         PyInstaller.__main__.run(args)
         print("\nExecutable created successfully!")
         print(f"Location: {os.path.join(script_dir, 'dist', 'IMS.exe')}")
-        
-        # Create a simple installer batch file
         create_installer_batch(script_dir)
-        
     except Exception as e:
         print(f"Error creating executable: {e}")
         return False
-    
     return True
 
 def create_installer_batch(script_dir):
-    """Create a simple batch file for easy installation"""
     batch_content = '''@echo off
 echo Installing IMS (Inventory Management System)...
 echo.
@@ -70,15 +56,12 @@ echo You can find IMS shortcut on your desktop.
 echo Installation location: %USERPROFILE%\\IMS
 pause
 '''
-    
     batch_file = os.path.join(script_dir, "install_ims.bat")
     with open(batch_file, "w") as f:
         f.write(batch_content)
-    
     print(f"Installer batch file created: {batch_file}")
 
 def install_requirements():
-    """Install required packages"""
     requirements = [
         'pyinstaller',
         'opencv-python',
@@ -87,7 +70,6 @@ def install_requirements():
         'pillow',
         'scikit-learn'
     ]
-    
     print("Installing required packages...")
     for package in requirements:
         try:
@@ -100,14 +82,11 @@ def install_requirements():
 if __name__ == "__main__":
     print("IMS Executable Builder")
     print("=" * 50)
-    
     choice = input("Do you want to install required packages first? (y/n): ").lower()
     if choice == 'y':
         install_requirements()
-    
     print("\nBuilding executable...")
     success = create_executable()
-    
     if success:
         print("\n" + "=" * 50)
         print("BUILD SUCCESSFUL!")

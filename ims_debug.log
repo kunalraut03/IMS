@@ -659,3 +659,93 @@ OSError: [Errno 22] Invalid argument
 2025-05-26 16:33:53,719 - INFO - Using conda environment Python: C:\Users\kaymh\miniconda3\envs\imsv3\python.exe
 2025-05-26 16:52:34,574 - INFO - Starting training script: C:/Users/kaymh/Downloads/IMS\train.py
 2025-05-26 16:52:38,244 - INFO - Starting training with TensorFlow 2.10.0
+2025-05-26 16:59:16,446 - INFO - Using conda environment Python: C:\Users\kaymh\miniconda3\envs\imsv3\python.exe
+2025-05-26 16:59:23,347 - INFO - Starting training script: C:/Users/kaymh/Downloads/IMS\train.py
+2025-05-26 16:59:26,811 - INFO - Starting training with TensorFlow 2.10.0
+2025-05-26 16:59:26,811 - INFO - Root directory: C:/Users/kaymh/Downloads/IMS
+2025-05-26 16:59:26,811 - INFO - Data directory: C:/Users/kaymh/Downloads/IMS\data
+2025-05-26 16:59:26,811 - INFO - Models directory: C:/Users/kaymh/Downloads/IMS\models
+2025-05-26 16:59:26,813 - INFO - Existing model backed up to C:/Users/kaymh/Downloads/IMS\models\model_backup.h5
+2025-05-26 16:59:26,929 - INFO - TRAIN OUTPUT: Found 2571 images belonging to 13 classes.
+2025-05-26 16:59:26,975 - INFO - TRAIN OUTPUT: Found 642 images belonging to 13 classes.
+2025-05-26 16:59:29,942 - INFO - Python Version: 3.10.16
+2025-05-26 16:59:29,942 - INFO - TensorFlow Version: 2.10.0
+2025-05-26 16:59:29,942 - INFO - GPU Information: NVIDIA GeForce GTX 1650
+2025-05-26 16:59:30,037 - INFO - TRAIN OUTPUT: Epoch 1/10
+2025-05-26 16:59:33,820 - INFO - Stop command received via socket
+2025-05-26 16:59:37,210 - INFO - Training stopped by user
+2025-05-26 16:59:37,211 - INFO - TRAIN OUTPUT: 
+2025-05-26 16:59:46,243 - ERROR - Training error: [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\kaymh\Downloads\IMS\train.py", line 354, in main
+    model.fit(
+  File "C:\Users\kaymh\miniconda3\envs\imsv3\lib\site-packages\keras\utils\traceback_utils.py", line 70, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "C:\Users\kaymh\miniconda3\envs\imsv3\lib\site-packages\keras\utils\io_utils.py", line 80, in print_msg
+    sys.stdout.flush()
+OSError: [Errno 22] Invalid argument
+2025-05-26 16:59:46,246 - INFO - Training interrupted, restored previous model
+2025-05-26 17:06:41,642 - INFO - Using conda environment Python: C:\Users\kaymh\miniconda3\envs\imsv3\python.exe
+2025-05-26 17:19:35,244 - INFO - Using conda environment Python: C:\Users\kaymh\miniconda3\envs\imsv3\python.exe
+2025-05-26 17:19:41,149 - INFO - Starting training script: C:/Users/kaymh/Downloads/IMS\train.py
+2025-05-26 17:19:45,238 - INFO - Starting training with TensorFlow 2.10.0
+2025-05-26 17:19:45,238 - INFO - Root directory: C:/Users/kaymh/Downloads/IMS
+2025-05-26 17:19:45,238 - INFO - Data directory: C:/Users/kaymh/Downloads/IMS\data
+2025-05-26 17:19:45,238 - INFO - Models directory: C:/Users/kaymh/Downloads/IMS\models
+2025-05-26 17:19:45,240 - INFO - Existing model backed up to C:/Users/kaymh/Downloads/IMS\models\model_backup.h5
+2025-05-26 17:19:45,355 - INFO - TRAIN OUTPUT: Found 2571 images belonging to 13 classes.
+2025-05-26 17:19:45,404 - INFO - TRAIN OUTPUT: Found 642 images belonging to 13 classes.
+2025-05-26 17:19:47,841 - INFO - Python Version: 3.10.16
+2025-05-26 17:19:47,841 - INFO - TensorFlow Version: 2.10.0
+2025-05-26 17:19:47,841 - INFO - GPU Information: NVIDIA GeForce GTX 1650
+2025-05-26 17:19:47,867 - INFO - TRAIN OUTPUT: Epoch 1/10
+2025-05-26 17:19:53,497 - INFO - TRAIN OUTPUT: 
+2025-05-26 17:19:53,555 - INFO - TRAIN OUTPUT: 1/81 [..............................] - ETA: 7:30 - loss: 3.6026 - accuracy: 0.0312
+2025-05-26 17:19:53,897 - INFO - TRAIN OUTPUT: 2/81 [..............................] - ETA: 4s - loss: 3.4247 - accuracy: 0.0469
+2025-05-26 17:19:54,192 - INFO - TRAIN OUTPUT: 3/81 [>.............................] - ETA: 15s - loss: 3.2863 - accuracy: 0.0625
+2025-05-26 17:19:54,499 - INFO - TRAIN OUTPUT: 4/81 [>.............................] - ETA: 17s - loss: 3.2618 - accuracy: 0.0547
+2025-05-26 17:19:54,789 - INFO - TRAIN OUTPUT: 5/81 [>.............................] - ETA: 19s - loss: 3.2079 - accuracy: 0.0688
+2025-05-26 17:19:55,093 - INFO - TRAIN OUTPUT: 6/81 [=>............................] - ETA: 19s - loss: 3.1920 - accuracy: 0.0625
+2025-05-26 17:19:55,392 - INFO - TRAIN OUTPUT: 7/81 [=>............................] - ETA: 19s - loss: 3.1383 - accuracy: 0.0580
+2025-05-26 17:19:55,681 - INFO - TRAIN OUTPUT: 8/81 [=>............................] - ETA: 19s - loss: 3.0644 - accuracy: 0.0664
+2025-05-26 17:19:55,982 - INFO - TRAIN OUTPUT: 9/81 [==>...........................] - ETA: 19s - loss: 3.0473 - accuracy: 0.0694
+2025-05-26 17:19:56,277 - INFO - TRAIN OUTPUT: 10/81 [==>...........................] - ETA: 19s - loss: 2.9975 - accuracy: 0.0812
+2025-05-26 17:19:56,597 - INFO - TRAIN OUTPUT: 11/81 [===>..........................] - ETA: 19s - loss: 2.9459 - accuracy: 0.0881
+2025-05-26 17:19:56,938 - INFO - TRAIN OUTPUT: 12/81 [===>..........................] - ETA: 19s - loss: 2.9371 - accuracy: 0.0911
+2025-05-26 17:19:57,244 - INFO - TRAIN OUTPUT: 13/81 [===>..........................] - ETA: 19s - loss: 2.8825 - accuracy: 0.0962
+2025-05-26 17:19:57,537 - INFO - TRAIN OUTPUT: 14/81 [====>.........................] - ETA: 19s - loss: 2.8253 - accuracy: 0.1138
+2025-05-26 17:19:57,848 - INFO - TRAIN OUTPUT: 15/81 [====>.........................] - ETA: 19s - loss: 2.7766 - accuracy: 0.1271
+2025-05-26 17:19:58,149 - INFO - TRAIN OUTPUT: 16/81 [====>.........................] - ETA: 18s - loss: 2.7458 - accuracy: 0.1309
+2025-05-26 17:19:58,463 - INFO - TRAIN OUTPUT: 17/81 [=====>........................] - ETA: 18s - loss: 2.6923 - accuracy: 0.1507
+2025-05-26 17:19:58,780 - INFO - TRAIN OUTPUT: 18/81 [=====>........................] - ETA: 18s - loss: 2.6482 - accuracy: 0.1667
+2025-05-26 17:19:59,083 - INFO - TRAIN OUTPUT: 19/81 [======>.......................] - ETA: 18s - loss: 2.6251 - accuracy: 0.1694
+2025-05-26 17:19:59,388 - INFO - TRAIN OUTPUT: 20/81 [======>.......................] - ETA: 17s - loss: 2.5975 - accuracy: 0.1750
+2025-05-26 17:19:59,703 - INFO - TRAIN OUTPUT: 21/81 [======>.......................] - ETA: 17s - loss: 2.5693 - accuracy: 0.1830
+2025-05-26 17:20:00,024 - INFO - TRAIN OUTPUT: 22/81 [=======>......................] - ETA: 17s - loss: 2.5376 - accuracy: 0.1903
+2025-05-26 17:20:00,337 - INFO - TRAIN OUTPUT: 23/81 [=======>......................] - ETA: 17s - loss: 2.5088 - accuracy: 0.1984
+2025-05-26 17:20:00,652 - INFO - TRAIN OUTPUT: 24/81 [=======>......................] - ETA: 16s - loss: 2.4743 - accuracy: 0.2044
+2025-05-26 17:20:00,970 - INFO - TRAIN OUTPUT: 25/81 [========>.....................] - ETA: 16s - loss: 2.4469 - accuracy: 0.2125
+2025-05-26 17:20:01,260 - INFO - TRAIN OUTPUT: 26/81 [========>.....................] - ETA: 16s - loss: 2.4141 - accuracy: 0.2248
+2025-05-26 17:20:01,568 - INFO - TRAIN OUTPUT: 27/81 [=========>....................] - ETA: 16s - loss: 2.3868 - accuracy: 0.2338
+2025-05-26 17:20:01,864 - INFO - TRAIN OUTPUT: 28/81 [=========>....................] - ETA: 15s - loss: 2.3593 - accuracy: 0.2455
+2025-05-26 17:20:02,157 - INFO - TRAIN OUTPUT: 29/81 [=========>....................] - ETA: 15s - loss: 2.3322 - accuracy: 0.2543
+2025-05-26 17:20:02,459 - INFO - TRAIN OUTPUT: 30/81 [==========>...................] - ETA: 15s - loss: 2.3084 - accuracy: 0.2625
+2025-05-26 17:20:02,766 - INFO - TRAIN OUTPUT: 31/81 [==========>...................] - ETA: 14s - loss: 2.2809 - accuracy: 0.2702
+2025-05-26 17:20:03,070 - INFO - TRAIN OUTPUT: 32/81 [==========>...................] - ETA: 14s - loss: 2.2577 - accuracy: 0.2773
+2025-05-26 17:20:03,378 - INFO - TRAIN OUTPUT: 33/81 [===========>..................] - ETA: 14s - loss: 2.2410 - accuracy: 0.2822
+2025-05-26 17:20:03,667 - INFO - TRAIN OUTPUT: 34/81 [===========>..................] - ETA: 14s - loss: 2.2151 - accuracy: 0.2895
+2025-05-26 17:20:03,963 - INFO - TRAIN OUTPUT: 35/81 [===========>..................] - ETA: 13s - loss: 2.1858 - accuracy: 0.3000
+2025-05-26 17:20:04,281 - INFO - TRAIN OUTPUT: 36/81 [============>.................] - ETA: 13s - loss: 2.1641 - accuracy: 0.3090
+2025-05-26 17:20:04,595 - INFO - TRAIN OUTPUT: 37/81 [============>.................] - ETA: 13s - loss: 2.1419 - accuracy: 0.3159
+2025-05-26 17:20:04,911 - INFO - TRAIN OUTPUT: 38/81 [=============>................] - ETA: 12s - loss: 2.1257 - accuracy: 0.3215
+2025-05-26 17:20:05,233 - INFO - TRAIN OUTPUT: 39/81 [=============>................] - ETA: 12s - loss: 2.1005 - accuracy: 0.3285
+2025-05-26 17:20:05,539 - INFO - TRAIN OUTPUT: 40/81 [=============>................] - ETA: 12s - loss: 2.0785 - accuracy: 0.3352
+2025-05-26 17:20:05,849 - INFO - TRAIN OUTPUT: 41/81 [==============>...............] - ETA: 12s - loss: 2.0536 - accuracy: 0.3407
+2025-05-26 17:20:06,151 - INFO - TRAIN OUTPUT: 42/81 [==============>...............] - ETA: 11s - loss: 2.0361 - accuracy: 0.3490
+2025-05-26 17:20:06,361 - INFO - Stop command received via socket
+2025-05-26 17:20:06,458 - INFO - Training stopped by user
+2025-05-26 17:20:06,459 - INFO - TRAIN OUTPUT: 43/81 [==============>...............] - ETA: 11s - loss: 2.0201 - accuracy: 0.3561
+2025-05-26 17:20:14,936 - INFO - TRAIN OUTPUT: 44/81 [===============>..............] - ETA: 11s - loss: 1.9984 - accuracy: 0.3651
+2025-05-26 17:20:14,937 - INFO - TRAIN OUTPUT: 81/81 [==============================] - 27s 268ms/step - loss: 1.9984 - accuracy: 0.3651 - val_loss: 0.9692 - val_accuracy: 0.8069
+2025-05-26 17:20:14,937 - INFO - Training was interrupted, checking for model to use...
+2025-05-26 17:20:14,939 - INFO - Training interrupted, restored previous model

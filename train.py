@@ -12,7 +12,6 @@ import logging
 import signal
 import threading
 
-# Use environment variables or fallback to current directory
 root_dir = os.environ.get("IMS_INSTALLATION_DIR", os.path.dirname(os.path.abspath(__file__)))
 data_dir = os.environ.get("IMS_DATA_DIR", os.path.join(root_dir, "data"))
 models_dir = os.environ.get("IMS_MODELS_DIR", os.path.join(root_dir, "models"))
@@ -103,7 +102,6 @@ class StatusCallback(Callback):
             })
             
     def on_epoch_end(self, epoch, logs=None):
-        # Save temporary model at the end of each epoch
         if not stop_training_event.is_set():
             try:
                 self.model.save(temp_model_path)
@@ -224,7 +222,6 @@ def backup_existing_model():
 
 def restore_from_backup():
     if os.path.exists(temp_model_path):
-        # If we have a temp model, use that (it's the latest epoch)
         try:
             if os.path.exists(model_path):
                 os.remove(model_path)
@@ -235,7 +232,6 @@ def restore_from_backup():
             logging.error(f"Failed to use temp model: {e}")
             
     if os.path.exists(backup_model_path):
-        # Fall back to the backup model if temp model isn't available or can't be used
         try:
             if os.path.exists(model_path):
                 os.remove(model_path)
@@ -257,7 +253,6 @@ class SimpleStopHandler:
         self.running = True
         self.server_thread = threading.Thread(target=self._command_server, daemon=True)
         self.server_thread.start()
-        # Also check for signal file
         self.file_check_thread = threading.Thread(target=self._check_signal_file, daemon=True)
         self.file_check_thread.start()
     
@@ -303,7 +298,7 @@ class SimpleStopHandler:
                 except:
                     pass
                 break
-            threading.Event().wait(0.5)  # Check every 500ms
+            threading.Event().wait(0.5)
 
 def main():
     logging.basicConfig(filename=os.path.join(root_dir, "ims_debug.log"), level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -311,45 +306,31 @@ def main():
     logging.info(f"Root directory: {root_dir}")
     logging.info(f"Data directory: {data_dir}")
     logging.info(f"Models directory: {models_dir}")
-    
     signal.signal(signal.SIGINT, signal_handler)
-    
-    # Initialize the stop signal handler
     stop_handler = SimpleStopHandler(stop_training_event)
     stop_handler.start()
-    
     os.makedirs(models_dir, exist_ok=True)
-    
-    # Check if data directory exists
     if not os.path.exists(data_dir):
         logging.error(f"Data directory does not exist: {data_dir}")
         print(f"Error: Data directory does not exist: {data_dir}")
         return
-    
-    # Backup existing model
     has_backup = backup_existing_model()
-    
     try:
         train_data, val_data = create_data_generator()
     except Exception as e:
         logging.error(f"Failed to create data generator: {e}")
         print(f"Error: Failed to create data generator: {e}")
         return
-    
     with open(labels_path, "w") as f:
         for label, index in train_data.class_indices.items():
             f.write(f"{index}: {label}\n")
-    
     model = build_model(len(train_data.class_indices))
-    
     try:
         num_epochs = int(os.environ.get("IMS_EPOCHS", 10))
     except ValueError:
         raise ValueError("Invalid value for IMS_EPOCHS. Please provide a valid integer.")
-    
     status_callback = StatusCallback()
     stop_callback = StopTrainingCallback()
-    
     try:
         model.fit(
             train_data,
@@ -377,7 +358,6 @@ def main():
         logging.exception(f"Training error: {e}")
         restored = restore_from_backup()
         if not restored and not os.path.exists(model_path) and has_backup:
-            # If training failed and we don't have a model, restore the backup
             if os.path.exists(backup_model_path):
                 try:
                     os.rename(backup_model_path, model_path)
@@ -385,16 +365,12 @@ def main():
                 except Exception as e:
                     logging.error(f"Failed to restore backup model: {e}")
     finally:
-        # Stop the signal handler
         stop_handler.stop()
-        
-        # Clean up temp files
         if os.path.exists(temp_model_path):
             try:
                 os.remove(temp_model_path)
             except:
                 pass
-                
         if os.path.exists(backup_model_path) and os.path.exists(model_path):
             try:
                 os.remove(backup_model_path)

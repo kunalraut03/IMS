@@ -1,0 +1,7 @@
+{
+    "installation_dir": "C://IMS",
+    "data_dir": "C://IMS\\data",
+    "models_dir": "C://IMS\\models",
+    "input_images_dir": "C://IMS\\data",
+    "compressed_images_dir": "C://IMS\\data"
+}

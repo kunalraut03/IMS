@@ -7,6 +7,7 @@ import json
 import shutil
 import threading
 import logging
+import datetime
 
 logging.basicConfig(filename="ims_debug.log", level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 
@@ -366,6 +367,13 @@ class IMSApplication:
                 # Create the folder if it doesn't exist
                 os.makedirs(excel_folder)
                 messagebox.showinfo("Excel Folder Created", f"Excel folder created at: {excel_folder}")
+            
+            # Also ensure current year/month folder exists
+            current_date = datetime.datetime.now()
+            year_month_folder = os.path.join(excel_folder, f"{current_date.year}_{current_date.month:02d}")
+            if not os.path.exists(year_month_folder):
+                os.makedirs(year_month_folder)
+                logging.info(f"Created year-month folder: {year_month_folder}")
             
             if os.name == 'nt':  # Windows
                 os.startfile(excel_folder)
