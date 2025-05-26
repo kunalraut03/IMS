@@ -186,7 +186,7 @@ class EpochStatusWindow:
                 print(f"Failed to send stop command: {e}")
                 # Try alternative method - create a signal file
                 try:
-                    with open("C:\\Users\\kaymh\\Downloads\\VIGYAN ASHRAM files\\IMS\\ver3.1\\stop_training.signal", "w") as f:
+                    with open("C://IMS\\kaymh\\Downloads\\VIGYAN ASHRAM files\\IMS\\ver3.1\\stop_training.signal", "w") as f:
                         f.write("stop")
                     self.interrupt_status_var.set("Stop signal sent via file")
                 except Exception as e:

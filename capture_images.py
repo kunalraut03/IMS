@@ -69,7 +69,7 @@ def select_webcam():
     root.destroy()
     return webcam_index
 
-root_dir = "C:\\Users\\kaymh\\Downloads\\VIGYAN ASHRAM files\\IMS\\ver3.1"
+root_dir = "C://IMS\\kaymh\\Downloads\\VIGYAN ASHRAM files\\IMS\\ver3.1"
 
 while True:
     object_name = get_object_name()

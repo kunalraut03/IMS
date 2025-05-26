@@ -13,7 +13,7 @@ import signal
 import threading
 from stop_signal_handler import StopSignalHandler
 
-root_dir = "C:\\Users\\kaymh\\Downloads\\VIGYAN ASHRAM files\\IMS\\ver3.1"
+root_dir = "C://IMS\\kaymh\\Downloads\\VIGYAN ASHRAM files\\IMS\\ver3.1"
 data_dir = os.path.join(root_dir, "data")
 models_dir = os.path.join(root_dir, "models")
 labels_path = os.path.join(models_dir, "labels1.txt")

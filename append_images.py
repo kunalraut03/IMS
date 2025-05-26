@@ -27,7 +27,7 @@ def get_next_image_index(save_dir, object_name):
 
 object_name = get_object_name()
 
-root_dir = "C:\\Users\\kaymh\\Downloads\\VIGYAN ASHRAM files\\IMS\\ver3.1"
+root_dir = "C://IMS\\kaymh\\Downloads\\VIGYAN ASHRAM files\\IMS\\ver3.1"
 save_dir = os.path.join(root_dir, "data", object_name)
 
 if not os.path.exists(save_dir):
