@@ -749,3 +749,11 @@ OSError: [Errno 22] Invalid argument
 2025-05-26 17:20:14,937 - INFO - TRAIN OUTPUT: 81/81 [==============================] - 27s 268ms/step - loss: 1.9984 - accuracy: 0.3651 - val_loss: 0.9692 - val_accuracy: 0.8069
 2025-05-26 17:20:14,937 - INFO - Training was interrupted, checking for model to use...
 2025-05-26 17:20:14,939 - INFO - Training interrupted, restored previous model
+2025-05-27 14:13:22,214 - INFO - Using conda environment Python: C:\Users\kaymh\miniconda3\envs\imsv3\python.exe
+2025-05-27 14:13:27,211 - INFO - Starting training script: C://IMS\train.py
+2025-05-27 14:13:30,724 - INFO - TRAIN OUTPUT: Found 2811 images belonging to 14 classes.
+2025-05-27 14:13:30,770 - INFO - TRAIN OUTPUT: Found 702 images belonging to 14 classes.
+2025-05-27 14:13:33,697 - INFO - TRAIN OUTPUT: Epoch 1/10
+2025-05-27 14:13:40,706 - INFO - TRAIN OUTPUT: 
+2025-05-27 14:13:50,494 - INFO - TRAIN OUTPUT: 1/88 [..............................] - ETA: 10:09 - loss: 3.1390 - accuracy: 0.0625
+2025-05-27 14:13:50,494 - INFO - TRAIN OUTPUT: 88/88 [==============================] - 17s 113ms/step - loss: 3.1390 - accuracy: 0.0625 - val_loss: 2.7789 - val_accuracy: 0.1809
