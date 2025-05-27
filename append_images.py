@@ -25,18 +25,58 @@ def get_next_image_index(save_dir, object_name):
     existing_indices = [int(f.split('_')[-1].split('.')[0]) for f in existing_images]
     return max(existing_indices) + 1
 
+def check_duplicate_object(object_name, save_dir):
+    if os.path.exists(save_dir):
+        root = tk.Tk()
+        root.withdraw()
+        while True:
+            response = simpledialog.askstring(
+                "Duplicate Object",
+                f"Object '{object_name}' already exists. Enter 1 to overwrite, 2 to append, 3 to cancel:",
+                parent=root
+            )
+            if response is None:
+                root.destroy()
+                exit("No option selected!")
+            if response == '1':
+                root.destroy()
+                return 'overwrite'
+            elif response == '2':
+                root.destroy()
+                return 'append'
+            elif response == '3':
+                root.destroy()
+                exit("Operation cancelled by user.")
+            else:
+                messagebox.showerror("Invalid Input", "Please enter a valid option (1, 2, or 3)")
+    return 'new'
+
 object_name = get_object_name()
 
-root_dir = "C://IMS"
-save_dir = os.path.join(root_dir, "data", object_name)
+root_dir = os.environ.get("IMS_INSTALLATION_DIR", os.path.dirname(os.path.abspath(__file__)))
+save_dir = os.environ.get("IMS_DATA_DIR", os.path.join(root_dir, "data"))
+save_dir = os.path.join(save_dir, object_name)
+
+action = check_duplicate_object(object_name, save_dir)
+if action == 'overwrite':
+    if os.path.exists(save_dir):
+        for file in os.listdir(save_dir):
+            os.remove(os.path.join(save_dir, file))
+elif action == 'append':
+    pass
 
 if not os.path.exists(save_dir):
-    exit(f"Object '{object_name}' does not exist. Please capture initial images first.")
+    os.makedirs(save_dir)
 
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FPS, 30)
 fps = 30
-total_images = 1500
+
+if object_name.lower() == "noobject":
+    total_images = 1500
+else:
+    total_images = 300
+
 count = get_next_image_index(save_dir, object_name) - 1
 
 cv2.namedWindow("Image Capture", cv2.WINDOW_NORMAL)

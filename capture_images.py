@@ -145,10 +145,11 @@ while not start_capture:
         if top_left and bottom_right:
             confirmed_box = True
     elif key == ord('s'):
-        if not confirmed_box:
-            print("Please confirm the bounding box before starting capture.")
+        if (top_left and bottom_right and confirmed_box) or (not top_left and not bottom_right):
+            start_capture = True
+        else:
+            print("Please confirm the bounding box (press 'Y') or press 'S' without drawing a box to capture full frame.")
             continue
-        start_capture = True
     elif key == ord('e'):
         cap.release()
         cv2.destroyAllWindows()
@@ -160,7 +161,7 @@ while count < total_images:
     if not ret:
         break
 
-    if top_left and bottom_right:
+    if top_left and bottom_right and confirmed_box:
         x1, y1 = top_left
         x2, y2 = bottom_right
         cropped_frame = frame[min(y1, y2):max(y1, y2), min(x1, x2):max(x1, x2)]
